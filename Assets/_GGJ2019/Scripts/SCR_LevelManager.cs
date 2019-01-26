@@ -71,7 +71,7 @@ public class SCR_LevelManager : MonoBehaviour {
         yield return new WaitUntil(() => isFading == false);
 
         //Level Adjustments, Resets, etc.
-        levels[_nextLevel].gameObject.SetActive(true);
+        //levels[_nextLevel].gameObject.SetActive(true);
 
         //Fade To Transparent
         FadeBackground(Color.clear,timeToLoad);

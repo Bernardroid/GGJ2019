@@ -43,9 +43,21 @@ public class SCR_JigsawStageManager : MonoBehaviour {
             enemyPool.Add(temp);
             temp.SetActive(false);
         }
+       
     }
-    void EnemyPooling()
+    GameObject GetPooledEnemy()
     {
+        for(int i = 0; i < enemyPool.Count; i++)
+        {
+            if(!enemyPool[i].activeSelf)
+            {
+                return enemyPool[i];
+            }
+        }
+
+        GameObject temp = Instantiate(enemyTypes[0]);
+        enemyPool.Add(temp);
+        return temp;
 
     }
     #endregion
