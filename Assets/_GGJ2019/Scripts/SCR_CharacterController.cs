@@ -39,8 +39,8 @@ public class SCR_CharacterController : MonoBehaviour {
 
     void Update ()
     {
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+        x = Input.GetAxisRaw("Horizontal");
+        z = Input.GetAxisRaw("Vertical");
 
         
 
