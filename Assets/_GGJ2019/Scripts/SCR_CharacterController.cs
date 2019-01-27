@@ -5,44 +5,48 @@ using UnityEngine;
 public class SCR_CharacterController : MonoBehaviour {
 
     public GameObject aim;
+    public float rateOfFire;
 
     Rigidbody rb;
+    Animator anim;
+
     public float characterSpeed;
+    public GameObject spwnBullet;
+    public GameObject bulletPre;
+    WaitForSeconds myWait;
+    Queue<GameObject> bulletPool;
 
     float x;
     float z;
     float aimX;
     float aimZ;
+    bool isShooting = false;
 
-    Vector3 aimTarget;
-    RaycastHit hitInfo;
-
-    float rotateSpeed = 5f;
     float radius = 3f;
     public float sensitivity;
 
-    float aimOffset;
-
-
-    Vector3 aimCenter;
     Vector3 aimVector;
-    float aimAngle;
 
     void Start ()
     {
+        myWait = new WaitForSeconds(rateOfFire);
         rb = GetComponent<Rigidbody>();
-        hitInfo = new RaycastHit();
-        aimCenter = transform.position;
-        aimOffset = radius;
-
+        anim = GetComponent<Animator>();
+        bulletPool = new Queue<GameObject>();
+        for(int i = 0; i < 30; i++)
+        {
+            bulletPool.Enqueue(Instantiate(bulletPre, Vector3.one * -1000, Quaternion.identity));
+        }
     }
 
     void Update ()
     {
-        x = Input.GetAxisRaw("Horizontal");
-        z = Input.GetAxisRaw("Vertical");
+        x = Input.GetAxisRaw("ChidoHorizontal") * characterSpeed;
+        z = Input.GetAxisRaw("ChidoVertical") * characterSpeed;
 
-        
+        //Debug.Log("X: " + x);
+        //Debug.Log("Z: " + z);
+
 
         aimX = Input.GetAxisRaw("Mouse X") * sensitivity;
         aimZ = Input.GetAxisRaw("Mouse Y") * sensitivity;
@@ -52,37 +56,63 @@ public class SCR_CharacterController : MonoBehaviour {
         MoveCharacter(new Vector3(x, 0, z) * characterSpeed);
         transform.LookAt(aim.transform.position.x * Vector3.right + transform.position.y * Vector3.up + aim.transform.position.z * Vector3.forward);
         MoveAim(aimVector);
+
+        if((Input.GetButtonDown("Shoot") || Input.GetButtonDown("Shoot2")) && !isShooting)
+        {
+            Debug.Log("SCHOOL SHOOTING");
+            StartCoroutine(ShootBullet());
+        }
+        //if(Input.GetButtonUp("Shoot") || Input.GetButtonUp("Shoot"))
+        //{
+        //    anim.SetBool("Shooting", false);
+        //    StopAllCoroutines();
+        //}
     }
 
-       
+    IEnumerator ShootBullet()
+    {
+        isShooting = true;
+        anim.SetBool("Shooting", true);
+        bulletPool.Peek().transform.position = spwnBullet.transform.position;
+        bulletPool.Peek().SetActive(true);
+        bulletPool.Peek().transform.rotation = spwnBullet.transform.parent.transform.rotation;
+        bulletPool.Enqueue(bulletPool.Dequeue());
+        yield return myWait;
+        anim.SetBool("Shooting", true);
+        bulletPool.Peek().transform.position = spwnBullet.transform.position;
+        bulletPool.Peek().SetActive(true);
+        bulletPool.Peek().transform.rotation = spwnBullet.transform.parent.transform.rotation;
+        bulletPool.Enqueue(bulletPool.Dequeue());
+        yield return myWait;
+        anim.SetBool("Shooting", true);
+        bulletPool.Peek().transform.position = spwnBullet.transform.position;
+        bulletPool.Peek().SetActive(true);
+        bulletPool.Peek().transform.rotation = spwnBullet.transform.parent.transform.rotation;
+        bulletPool.Enqueue(bulletPool.Dequeue());
+        yield return myWait;
+        anim.SetBool("Shooting", false);
+        isShooting = false;
+    }
+
     void MoveCharacter(Vector3 _moveVector)
     {
         rb.velocity = _moveVector;
+        //if(_moveVector.normalized )
+        anim.SetFloat("VelX", x/characterSpeed);
+        anim.SetFloat("VelZ", z/characterSpeed);
     }
 
     void MoveAim(Vector3 _moveVector)
     {
-        aim.transform.position = new Vector3(aim.transform.position.x + _moveVector.x, aim.transform.position.y, aim.transform.position.z + _moveVector.z);
-        Vector3 centerPosition = transform.position;
+        aim.transform.position += _moveVector;
+        Vector3 centerPosition = new Vector3(transform.position.x, 0, transform.position.z);
         float distance = Vector3.Distance(aim.transform.position, centerPosition);
 
-        if (_moveVector.normalized == -transform.forward)
+        if (distance > radius)
         {
-            Debug.Log("HAPPENIN");
-            aimOffset -= aimVector.magnitude;
-        }
-
-        if (_moveVector.normalized == transform.forward && distance < radius)
-        {
-            aimOffset += aimVector.magnitude;
-        }
-
-        if (distance > radius || distance > aimOffset)
-        {
-            //Debug.Log("Exceeding");
-            Vector3 fromOriginToObject = aim.transform.position - centerPosition;
+            Vector3 fromOriginToObject = new Vector3(aim.transform.position.x, 0.1f, aim.transform.position.z) - centerPosition;
             fromOriginToObject *= radius / distance;
-            aim.transform.position = Vector3.right * (centerPosition.x + fromOriginToObject.x) + aim.transform.position.y * Vector3.up + Vector3.forward * (centerPosition.z + fromOriginToObject.z);
+            aim.transform.position = centerPosition + fromOriginToObject;
         }
     }
 }
