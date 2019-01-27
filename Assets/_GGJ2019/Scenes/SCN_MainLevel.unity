@@ -1808,6 +1808,11 @@ MonoBehaviour:
   background: {fileID: 1895862794}
   timeToFade: 2
   timeToLoad: 2
+  maskSprites:
+  - {fileID: 21300000, guid: 86a68914dda736246ad8e9010287b2e9, type: 3}
+  - {fileID: 21300000, guid: efca9c09d5ff77a4c8f0bdcb8c62ef8d, type: 3}
+  - {fileID: 21300000, guid: a864935d8a2055b428aef712e7913280, type: 3}
+  - {fileID: 21300000, guid: 36c25fa8220c1334fa9588d89aec5296, type: 3}
   Loading: {fileID: 1139282401}
   myLoadingBar: {fileID: 27620977}
 --- !u!4 &1536536581
@@ -2172,7 +2177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingLife: 100
   myLifeBar: {fileID: 521276482}
-  myDeathImage: {fileID: 0}
+  myDeathImage: {fileID: 1700030918}
 --- !u!4 &1850304232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4992996610510774, guid: faf0fc51c39205345ba3cfb663c89850,
@@ -2486,7 +2491,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 86a68914dda736246ad8e9010287b2e9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

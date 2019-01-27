@@ -16,9 +16,12 @@ public class SCR_LevelManager : MonoBehaviour {
     public float timeToFade;
     public float timeToLoad;
     bool isFading;
+    public Sprite[] maskSprites;
+
     bool isLoading;
     public GameObject Loading;
     public Slider myLoadingBar;
+
 
 
 
@@ -75,6 +78,7 @@ public class SCR_LevelManager : MonoBehaviour {
     IEnumerator IELoadNextLevel(int _nextLevel)
     {
         //Fade To Black
+        background.sprite = maskSprites[_nextLevel];
         FadeBackground(Color.black, timeToLoad);
         yield return endOfFrame;
         yield return new WaitUntil(() => isFading == false);
