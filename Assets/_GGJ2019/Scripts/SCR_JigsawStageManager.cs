@@ -12,20 +12,35 @@ public class SCR_JigsawStageManager : MonoBehaviour {
     public GameObject[] mementos;
     public GameObject mementoSpawn;
     [Header("Gameplay")]
-    public GameObject enemyDaddy;
-    public float spawnTimeOffset;
-    public float totalEnemies;
-    private bool activeSpawner; //true=primary, false=secondary
-    bool spawning;
+    public GameObject [] enemyDaddy;
     public int initialSpawn;
-    List<GameObject> activeSpawnListPrimary = new List<GameObject>();
-    List<GameObject> activeSpawnListSecondary = new List<GameObject>();
-    List<GameObject> enemyPool = new List<GameObject>();
-    WaitForSeconds waitForSeconds;
+    public float spawnTimeOffset;
+    public float maxEnemies;
+    private bool activeSpawner; //false=primary, true=secondary
+    bool isSpawning;
+    int currentEnemies;
+    int waveKills;
 
+    Queue<GameObject> activeSpawnListPrimary = new Queue<GameObject>();
+    Queue<GameObject> activeSpawnListSecondary = new Queue<GameObject>();
+    List<GameObject> []enemyPool;
+    WaitForSeconds waitForSeconds;
+    WaitForEndOfFrame endOfFrame;
+    private void Awake()
+    {
+        waitForSeconds = new WaitForSeconds(spawnTimeOffset);
+        enemyPool = new List<GameObject>[enemyTypes.Length];
+        for(int i=0; i<enemyTypes.Length;i++)
+        {
+            enemyPool[i] = new List<GameObject>();
+        }
+    }
     // Use this for initialization
     void Start() {
-        waitForSeconds = new WaitForSeconds(spawnTimeOffset);
+        for(int i=0;i< enemyTypes.Length;i++)
+        {
+            InstantiateEnemyPool(i);
+        }
 	}
 	
 	// Update is called once per frame
@@ -34,29 +49,30 @@ public class SCR_JigsawStageManager : MonoBehaviour {
 	}
 
     #region POOLING
-    void InstantiateEnemyPool()
+    void InstantiateEnemyPool(int _enemyType)
     {
         GameObject temp;
         for (int i=0; i<initialSpawn; i++)
         {
-            temp = Instantiate(enemyTypes[0]);
-            enemyPool.Add(temp);
+            temp = Instantiate(enemyTypes[_enemyType], enemyDaddy[_enemyType].transform);
+            enemyPool[_enemyType].Add(temp);
             temp.SetActive(false);
         }
-       
     }
-    GameObject GetPooledEnemy()
+    GameObject GetPooledEnemy(int _enemyType)
     {
-        for(int i = 0; i < enemyPool.Count; i++)
+
+        for (int i = 0; i < enemyPool[_enemyType].Count; i++)
         {
-            if(!enemyPool[i].activeSelf)
+            if (!enemyPool[_enemyType][i].activeSelf)
             {
-                return enemyPool[i];
+                enemyPool[_enemyType][i].SetActive(true);
+                return enemyPool[_enemyType][i];
             }
         }
 
-        GameObject temp = Instantiate(enemyTypes[0]);
-        enemyPool.Add(temp);
+        GameObject temp = Instantiate(enemyTypes[_enemyType], enemyDaddy[_enemyType].transform);
+        enemyPool[_enemyType].Add(temp);
         return temp;
 
     }
@@ -70,31 +86,57 @@ public class SCR_JigsawStageManager : MonoBehaviour {
 
         for (int i = 0; i < enemySpawns.Length; i++)
         {
-            if (Random.Range(0, 2) == 0)
+            for(int j=0; j< enemySpawns[i].transform.childCount;j++)
             {
-                activeSpawnListPrimary.Add(enemySpawns[i]);
+                if (Random.Range(0, 2) == 0)
+                {
+                    activeSpawnListPrimary.Enqueue(enemySpawns[i].transform.GetChild(j).gameObject);
+                }
+                else
+                {
+                    activeSpawnListSecondary.Enqueue(enemySpawns[i].transform.GetChild(j).gameObject);
+                }
             }
-            else
-            {
-                activeSpawnListSecondary.Add(enemySpawns[i]);
-            }
+            
         }
     }
-    void SpawnEnemies()
+    public void SpawnEnemies(int _waves)
     {
-        if(!spawning)
+        if (!isSpawning)
         {
-            spawning = true;
-            StartCoroutine(IESpawnEnemies());
+            isSpawning = true;
+            StartCoroutine(IESpawnEnemies(_waves, SCR_LevelManager.currentLevel));
         }
     }
     #endregion
 
 
-    IEnumerator IESpawnEnemies()
+    IEnumerator IESpawnEnemies(int _waves, int _level)
     {
+        int spawnCount = activeSpawnListPrimary.Count;
+
+        for (int i = 0; i < spawnCount; i++)
+        {
+            GetPooledEnemy(0).transform.position = activeSpawnListPrimary.Dequeue().transform.position;
+        }
 
         yield return waitForSeconds;
 
+        spawnCount = activeSpawnListSecondary.Count;
+        for (int i = 0; i < spawnCount; i++)
+        {
+            GetPooledEnemy(0).transform.position = activeSpawnListPrimary.Dequeue().transform.position;
+        }
+
+        yield return waitForSeconds;
+
+        if(_waves<=0)
+        {
+            isSpawning = true;
+        }
+        else
+        {
+            StartCoroutine(IESpawnEnemies(_waves-1,SCR_LevelManager.currentLevel));
+        }
     }
 }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class SCR_LevelManager : MonoBehaviour {
-    [Header("Level Manager")]
-    public SCR_LevelManager[] levels;
-    public int currentLevel;
+
+    //[Header("Level Manager")]
+    SCR_JigsawStageManager jigsawManager;
+    public static int currentLevel;
 
 
     [Header("Background Related")]
@@ -21,6 +22,7 @@ public class SCR_LevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //FadeBackground(Color.clear, timeToFade);
+        jigsawManager = GetComponent<SCR_JigsawStageManager>();
         LoadNextLevel();
 	}
 	
@@ -71,6 +73,7 @@ public class SCR_LevelManager : MonoBehaviour {
         yield return new WaitUntil(() => isFading == false);
 
         //Level Adjustments, Resets, etc.
+
         //levels[_nextLevel].gameObject.SetActive(true);
 
         //Fade To Transparent
@@ -79,6 +82,32 @@ public class SCR_LevelManager : MonoBehaviour {
         yield return new WaitUntil(() => isFading == false);
 
         isLoading = false;
+
+        switch(currentLevel)
+        {
+            case 0:
+                {
+                    jigsawManager.SpawnEnemies(2);
+                }
+                break;
+            case 1:
+                {
+                    jigsawManager.SpawnEnemies(3);
+                }
+                break;
+            case 2:
+                {
+                    jigsawManager.SpawnEnemies(4);
+                }
+                break;
+            case 3:
+                {
+                    jigsawManager.SpawnEnemies(5);
+                }
+                break;
+            
+        }
+
     }
 
     
