@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class SCR_PlayerStats : MonoBehaviour {
 
-    public float life;
+    public float startingLife;
+    float life;
+    public Image myLifeBar;
+    public GameObject myDeathImage;
 
 	// Use this for initialization
 	void Start ()
     {
-		
-	}
+        life = startingLife;
+        myLifeBar.fillAmount = Mathf.Clamp01(life / startingLife);
+        myDeathImage.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -25,9 +32,19 @@ public class SCR_PlayerStats : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.CompareTag("Enemy"))
-        {
+        if(collision.transform.CompareTag("bullets"))
+        {   
             DamagePlayer(collision.gameObject.GetComponent<SCR_EnemyDmg>().dmg);
+            if(life <= 0)
+            {
+                //loose
+                myLifeBar.fillAmount = 0;
+                myDeathImage.SetActive(true);
+            }
+            else
+            {
+                myLifeBar.fillAmount = Mathf.Clamp01(life / startingLife);
+            }
         }
     }
 }

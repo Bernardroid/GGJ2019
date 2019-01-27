@@ -385,6 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aim: {fileID: 736410294}
   rateOfFire: 0
+  shootingDelay: 0
   characterSpeed: 5
   spwnBullet: {fileID: 0}
   bulletPre: {fileID: 0}
@@ -716,6 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aim: {fileID: 736410294}
   rateOfFire: 0.1
+  shootingDelay: 0.2
   characterSpeed: 2.4
   spwnBullet: {fileID: 905891879}
   bulletPre: {fileID: 1914454555545176, guid: 68b97c9bdc625d4478326bc4df8aaa1e, type: 2}

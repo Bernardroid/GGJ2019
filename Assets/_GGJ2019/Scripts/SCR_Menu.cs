@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SCR_Menu : MonoBehaviour {
@@ -11,6 +12,8 @@ public class SCR_Menu : MonoBehaviour {
     bool pair = true;
     float timerInt = 0;
     float myTime = 1.0f;
+    public GameObject LoadingScreen;
+    public Slider myLoadingBar;
 	// Use this for initialization
 	void Start () {
         StartCoroutine(Interrupting());
@@ -19,11 +22,6 @@ public class SCR_Menu : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-  //      timerInt += Time.deltaTime;
-		//if(timerInt >= myTime)
-  //      {
-            
-  //      }
 	}
 
     IEnumerator Interrupting()
@@ -50,5 +48,27 @@ public class SCR_Menu : MonoBehaviour {
         yield return new WaitForSeconds(myTime);
         StartCoroutine(Interrupting());
         
+    }
+
+    public void StartGame(int _scene)
+    {
+        StartCoroutine(LoadScene(_scene));    
+    }
+
+    IEnumerator LoadScene(int _scene)
+    {
+        AsyncOperation loading = SceneManager.LoadSceneAsync(_scene);
+        float progress = 0.0f;
+        while(!loading.isDone)
+        {
+            progress = Mathf.Clamp01(loading.progress / 0.9f);
+            myLoadingBar.value = progress;
+            yield return null;
+        }
+    }
+
+    public void ExitGame()
+    {
+
     }
 }

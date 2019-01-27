@@ -36,4 +36,9 @@ public class SCR_Bullet : MonoBehaviour {
     {
         this.gameObject.SetActive(false);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        this.gameObject.SetActive(false);
+    }
 }

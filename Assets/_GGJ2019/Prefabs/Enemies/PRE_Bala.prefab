@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114352208224930586}
   - component: {fileID: 54606673626975876}
   - component: {fileID: 114703369331196910}
+  - component: {fileID: 114617744808439826}
   m_Layer: 0
   m_Name: PRE_Bala
   m_TagString: bullets
@@ -114,6 +115,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+--- !u!114 &114617744808439826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496334708715332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec09a32795ab3342b41c2706ef93569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 10
 --- !u!114 &114703369331196910
 MonoBehaviour:
   m_ObjectHideFlags: 1

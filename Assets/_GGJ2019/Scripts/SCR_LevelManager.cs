@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 public class SCR_LevelManager : MonoBehaviour {
@@ -16,6 +17,10 @@ public class SCR_LevelManager : MonoBehaviour {
     public float timeToLoad;
     bool isFading;
     bool isLoading;
+    public GameObject Loading;
+    public Slider myLoadingBar;
+
+
 
 
     //PrivateStuff
@@ -112,6 +117,30 @@ public class SCR_LevelManager : MonoBehaviour {
 
         }
         isLoading = false;
+    }
+
+
+    public void RestartLevel()
+    {
+        StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+    }
+
+    public void ExitLevel()
+    {
+        Application.Quit();
+    }
+
+
+    IEnumerator LoadScene(string _scene)
+    {
+        AsyncOperation loading = SceneManager.LoadSceneAsync(_scene);
+        float progress = 0.0f;
+        while (!loading.isDone)
+        {
+            progress = Mathf.Clamp01(loading.progress / 0.9f);
+            myLoadingBar.value = progress;
+            yield return null;
+        }
     }
 
 
