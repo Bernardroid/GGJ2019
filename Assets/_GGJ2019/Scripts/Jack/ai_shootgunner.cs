@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ai_shootgunner : MonoBehaviour {
+public class ai_shootgunner : MonoBehaviour
+{
 
     public GameObject shot;
     public Transform bspawn;
@@ -10,6 +11,7 @@ public class ai_shootgunner : MonoBehaviour {
     private float next;
 
     public int poolammo;
+    WaitForSeconds myWait;
     List<GameObject> shots;
     void Start()
     {
@@ -24,7 +26,8 @@ public class ai_shootgunner : MonoBehaviour {
         }
         */
 
-        InvokeRepeating("fire", firerate, firerate);
+        myWait = new WaitForSeconds(firerate);
+        StartCoroutine(Fire());
     }
     /* void Update () {
 
@@ -38,20 +41,19 @@ public class ai_shootgunner : MonoBehaviour {
 
      }*/
 
-    void fire()
+    IEnumerator Fire()
     {
-        GameObject obj = hell_poolshotgun.current.Getpoolshot();
+        yield return myWait;
 
+        GameObject obj = hell_poolbullet.current.Getpoolshot();
         //Instantiate(shot, transform.position, Quaternion.identity);
-        if (obj == null) return;
-
-
-
-        obj.transform.position = transform.position;
-        obj.transform.rotation = transform.rotation;
-        obj.SetActive(true);
-
-
+        if (obj != null)
+        {
+            obj.transform.position = transform.position;
+            obj.transform.rotation = transform.rotation;
+            obj.SetActive(true);
+        }
+        StartCoroutine(Fire());
     }
 
 }
