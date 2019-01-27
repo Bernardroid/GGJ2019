@@ -7,8 +7,9 @@ public class SCR_LevelManager : MonoBehaviour {
     //[Header("Level Manager")]
     SCR_JigsawStageManager jigsawManager;
     public static int currentLevel;
-
-
+    public GameObject[] rooms;
+    GameObject player;
+    int totalKills;
     [Header("Background Related")]
     public Image background;
     public float timeToFade;
@@ -22,6 +23,7 @@ public class SCR_LevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //FadeBackground(Color.clear, timeToFade);
+        player = GameObject.FindGameObjectWithTag("Player");
         jigsawManager = GetComponent<SCR_JigsawStageManager>();
         LoadNextLevel();
 	}
@@ -39,12 +41,12 @@ public class SCR_LevelManager : MonoBehaviour {
         }
     }
 
-    void LoadNextLevel()
+    public void LoadNextLevel()
     {
         if(!isLoading)
         {
             isLoading = true;
-            StartCoroutine(IELoadNextLevel(++currentLevel));
+            StartCoroutine(IELoadNextLevel(currentLevel));
         }
     }
 
@@ -68,21 +70,23 @@ public class SCR_LevelManager : MonoBehaviour {
     IEnumerator IELoadNextLevel(int _nextLevel)
     {
         //Fade To Black
-        FadeBackground(Color.black,timeToLoad);
+        FadeBackground(Color.black, timeToLoad);
         yield return endOfFrame;
         yield return new WaitUntil(() => isFading == false);
 
         //Level Adjustments, Resets, etc.
-
-        //levels[_nextLevel].gameObject.SetActive(true);
+        for (int i = 0; i < rooms.Length;i++)
+        {
+            rooms[i].SetActive(false);
+        }
+        rooms[_nextLevel].gameObject.SetActive(true);
 
         //Fade To Transparent
         FadeBackground(Color.clear,timeToLoad);
         yield return endOfFrame;
         yield return new WaitUntil(() => isFading == false);
 
-        isLoading = false;
-
+        Debug.Log(currentLevel);
         switch(currentLevel)
         {
             case 0:
@@ -105,10 +109,10 @@ public class SCR_LevelManager : MonoBehaviour {
                     jigsawManager.SpawnEnemies(5);
                 }
                 break;
-            
-        }
 
+        }
+        isLoading = false;
     }
 
-    
+
 }

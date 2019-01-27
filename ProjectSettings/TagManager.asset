@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - bullets
+  - Enemy
+  - Room
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -376,7 +376,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4745175482442056}
-  - component: {fileID: 23748297186719752}
   - component: {fileID: 65630709486614024}
   - component: {fileID: 54324661102540470}
   - component: {fileID: 114501856268308452}
@@ -621,7 +620,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1693284388410802}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.104, y: -0.31, z: 0.51}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4388228683041012}
@@ -653,7 +652,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1125000591500834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.175, y: 0.113000035, z: 0.59900093}
+  m_LocalPosition: {x: 0.166, y: 0.431, z: 0.246}
   m_LocalScale: {x: -0.07411, y: -0.09865, z: -0.27206}
   m_Children: []
   m_Father: {fileID: 4745175482442056}
@@ -779,7 +778,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1795273881904042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.08, y: 1.46, z: -29.796}
+  m_LocalPosition: {x: 6.55054, y: 0, z: -8.973768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4368723440357530}
@@ -795,7 +794,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528112302660474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.447, y: 0.113, z: 0.599}
+  m_LocalPosition: {x: 0.028, y: 0.431, z: 0.335}
   m_LocalScale: {x: -0.07411187, y: -0.09864896, z: -0.27206}
   m_Children: []
   m_Father: {fileID: 4745175482442056}
@@ -932,41 +931,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23748297186719752
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1795273881904042}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 3bf93b15fe6727a4ead218844327323e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23770585791795290
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1029,7 +993,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &65258047026814286
 BoxCollider:
@@ -1054,7 +1018,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.71958447, y: 0.9881375, z: 0.1951809}
-  m_Center: {x: -0.075314045, y: 0.19575632, z: 0.510272}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!65 &65959743130950776
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1098,7 +1062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoint:
   - {fileID: 0}
-  speed: 1
+  speed: 0.8
   theway: 1
   patrol: 1
   target: {x: 0, y: 0, z: 0}
@@ -1133,7 +1097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shot: {fileID: 1676780732730390, guid: 8e58cd66d6971514aab585ab8b6798e0, type: 2}
   bspawn: {fileID: 4751144647186288}
-  firerate: 5
+  firerate: 4
   poolammo: 45
 --- !u!114 &114633383618227756
 MonoBehaviour:
@@ -1148,7 +1112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shot: {fileID: 1676780732730390, guid: 8e58cd66d6971514aab585ab8b6798e0, type: 2}
   bspawn: {fileID: 4484193406947244}
-  firerate: 3
+  firerate: 2
   poolammo: 45
 --- !u!114 &114919247451828096
 MonoBehaviour:

@@ -23,7 +23,7 @@ public class ai_move : MonoBehaviour {
 
     void Start()
     {
-        anima = GetComponent<Animator>();
+        anima = GetComponentInChildren<Animator>();
        
 
     }
@@ -77,12 +77,19 @@ public class ai_move : MonoBehaviour {
  
 
     }
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
-        if(col.rigidbody)
+        Debug.Log("Trigger!");
+        if(col.gameObject.CompareTag("Bullet"))
         {
-          Destroy(gameObject);
-
+            Debug.Log("BulletHit");
+            ai_bullet[] children = GetComponentsInChildren<ai_bullet>();
+            for(int i=0; i<children.Length;i++)
+            {
+                children[i].CancelInvoke();
+            }
+            SCR_JigsawStageManager.waveKills++;
+            gameObject.SetActive(false);
         }
         
     }

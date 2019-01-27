@@ -11,24 +11,25 @@ public class SCR_JigsawStageManager : MonoBehaviour {
     public GameObject playerSpawn;
     public GameObject[] mementos;
     public GameObject mementoSpawn;
-    [Header("Gameplay")]
+    [Header("Spawning")]
     public GameObject [] enemyDaddy;
     public int initialSpawn;
     public float spawnTimeOffset;
-    public float maxEnemies;
-    private bool activeSpawner; //false=primary, true=secondary
     bool isSpawning;
-    int currentEnemies;
-    int waveKills;
+    [Header("Winning")]
+    SCR_LevelManager levelManager;
+    int enemyCount;
+    public static int waveKills;
 
     Queue<GameObject> activeSpawnListPrimary = new Queue<GameObject>();
     Queue<GameObject> activeSpawnListSecondary = new Queue<GameObject>();
     List<GameObject> []enemyPool;
-    WaitForSeconds waitForSeconds;
+    WaitForSeconds waitSpawnTimeOffset;
     WaitForEndOfFrame endOfFrame;
     private void Awake()
     {
-        waitForSeconds = new WaitForSeconds(spawnTimeOffset);
+        levelManager = GetComponent<SCR_LevelManager>();
+        waitSpawnTimeOffset = new WaitForSeconds(spawnTimeOffset);
         enemyPool = new List<GameObject>[enemyTypes.Length];
         for(int i=0; i<enemyTypes.Length;i++)
         {
@@ -84,21 +85,19 @@ public class SCR_JigsawStageManager : MonoBehaviour {
         activeSpawnListPrimary.Clear();
         activeSpawnListSecondary.Clear();
 
-        for (int i = 0; i < enemySpawns.Length; i++)
+
+        for (int j = 0; j < enemySpawns[SCR_LevelManager.currentLevel].transform.childCount; j++)
         {
-            for(int j=0; j< enemySpawns[i].transform.childCount;j++)
+            if (Random.Range(0, 2) == 0)
             {
-                if (Random.Range(0, 2) == 0)
-                {
-                    activeSpawnListPrimary.Enqueue(enemySpawns[i].transform.GetChild(j).gameObject);
-                }
-                else
-                {
-                    activeSpawnListSecondary.Enqueue(enemySpawns[i].transform.GetChild(j).gameObject);
-                }
+                activeSpawnListPrimary.Enqueue(enemySpawns[SCR_LevelManager.currentLevel].transform.GetChild(j).gameObject);
             }
-            
+            else
+            {
+                activeSpawnListSecondary.Enqueue(enemySpawns[SCR_LevelManager.currentLevel].transform.GetChild(j).gameObject);
+            }
         }
+
     }
     public void SpawnEnemies(int _waves)
     {
@@ -113,26 +112,116 @@ public class SCR_JigsawStageManager : MonoBehaviour {
 
     IEnumerator IESpawnEnemies(int _waves, int _level)
     {
+        SetActiveSpawners();
+        GameObject temp;
         int spawnCount = activeSpawnListPrimary.Count;
-
-        for (int i = 0; i < spawnCount; i++)
+        switch(_level)
         {
-            GetPooledEnemy(0).transform.position = activeSpawnListPrimary.Dequeue().transform.position;
+            case 0:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(0);
+                        temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
+                        temp.SetActive(true);
+
+                    }
+                }
+                break;
+            case 1:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(1);
+                        temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
+                        temp.SetActive(true);
+
+                    }
+                }
+                break;
+            case 2:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(2);
+                        temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
+                        temp.SetActive(true);
+
+                    }
+                }
+                break;
+            case 3:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(3);
+                        temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
+                        temp.SetActive(true);
+
+                    }
+                }
+                break;
         }
 
-        yield return waitForSeconds;
+       
+
+        yield return waitSpawnTimeOffset;
 
         spawnCount = activeSpawnListSecondary.Count;
-        for (int i = 0; i < spawnCount; i++)
-        {
-            GetPooledEnemy(0).transform.position = activeSpawnListPrimary.Dequeue().transform.position;
-        }
 
-        yield return waitForSeconds;
+        switch (_level)
+        {
+            case 0:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(0);
+                        temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
+                        temp.SetActive(true);
+                    }
+                }
+                break;
+            case 1:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(1);
+                        temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
+                        temp.SetActive(true);
+                    }
+                }
+                break;
+            case 2:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(2);
+                        temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
+                        temp.SetActive(true);
+                    }
+                }
+                break;
+            case 3:
+                {
+                    for (int i = 0; i < spawnCount; i++)
+                    {
+                        temp = GetPooledEnemy(3);
+                        temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
+                        temp.SetActive(true);
+                    }
+                }
+                break;
+        }
+        
+
+        yield return waitSpawnTimeOffset;
 
         if(_waves<=0)
         {
-            isSpawning = true;
+            SCR_LevelManager.currentLevel++;
+            yield return new WaitUntil(() => waveKills >= enemyCount);
+            isSpawning = false;
+
         }
         else
         {

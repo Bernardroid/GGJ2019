@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 114247453369152514}
   m_Layer: 0
   m_Name: PRE_EnemyeVol3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -595,7 +595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1996553671336390
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +719,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792822611649564}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.148, y: 0, z: -0.56}
+  m_LocalPosition: {x: 0.594, y: -0.714, z: -1.144}
   m_LocalScale: {x: 0.15435, y: 0.15435, z: 0.15435}
   m_Children: []
   m_Father: {fileID: 4048613274184456}
@@ -1120,7 +1120,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1981998492543174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.341519, y: 4.362786e-16, z: -29.648243}
+  m_LocalPosition: {x: 3.4298553, y: 0, z: -8.131748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4474015328300294}
@@ -1136,7 +1136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1888702590126064}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.146, y: -0, z: -0.56}
+  m_LocalPosition: {x: -1.465, y: -0.227, z: -0.56}
   m_LocalScale: {x: 0.15434563, y: 0.15434557, z: 0.15434557}
   m_Children: []
   m_Father: {fileID: 4048613274184456}
@@ -1298,8 +1298,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.76955414, y: 0.9441633, z: 0.65828705}
-  m_Center: {x: 0.047204018, y: 0.493227, z: 0.10731506}
+  m_Size: {x: 0.66, y: 0.9441633, z: 0.35}
+  m_Center: {x: 0, y: 0.493227, z: 0}
 --- !u!65 &65837832236053744
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1370,7 +1370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoint:
   - {fileID: 0}
-  speed: 2
+  speed: 0.8
   theway: 0
   patrol: 1
   target: {x: 0, y: 0, z: 0}
@@ -1422,7 +1422,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 96aa0980aa425b84c9c36770c5707e49, type: 2}
+  - {fileID: 2100000, guid: 64266b83fb3d6fa4ea599176d07f7f4f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1472,7 +1472,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 4d563126136135e4786581e9444dcf3f, type: 3}
+  - {fileID: 2100000, guid: ab7b58e7029cb2b44aa62bb1b2d8bd80, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
