@@ -40,5 +40,17 @@ public class SCR_Bullet : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         this.gameObject.SetActive(false);
+        if (collision.transform.CompareTag("Enemy") || collision.transform.CompareTag("Floor"))
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy") || other.CompareTag("Floor"))
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 }
