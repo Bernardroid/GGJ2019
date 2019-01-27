@@ -10,9 +10,15 @@ public class SCR_PlayerStats : MonoBehaviour {
     float life;
     public Image myLifeBar;
     public GameObject myDeathImage;
+    public Material[] myMats;
+    public SkinnedMeshRenderer myRenderer;
+    bool hit = false;
+    bool pair = true;
+    WaitForSeconds myWait = new WaitForSeconds(0.1f);
+    int frames = 30;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         life = startingLife;
         myLifeBar.fillAmount = Mathf.Clamp01(life / startingLife);
@@ -41,7 +47,7 @@ public class SCR_PlayerStats : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("bullets"))
+        if (other.transform.CompareTag("bullets") && !hit)
         {
             DamagePlayer(other.gameObject.GetComponent<SCR_EnemyDmg>().dmg);
             if (life <= 0)
@@ -53,7 +59,29 @@ public class SCR_PlayerStats : MonoBehaviour {
             else
             {
                 myLifeBar.fillAmount = Mathf.Clamp01(life / startingLife);
+                StartCoroutine(Interrupting());
             }
         }
+    }
+
+    IEnumerator Interrupting()
+    {
+        hit = true;
+        for (int i = 0; i < frames; i++)
+        {
+            if (pair)
+            {
+                myRenderer.material = myMats[1];
+            }
+            else
+            {
+                myRenderer.material = myMats[0];
+
+            }
+            pair = !pair;
+            yield return myWait;
+        }
+        myRenderer.material = myMats[0];
+        hit = false;
     }
 }
