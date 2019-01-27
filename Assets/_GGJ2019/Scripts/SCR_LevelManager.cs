@@ -17,7 +17,7 @@ public class SCR_LevelManager : MonoBehaviour {
     public float timeToFade;
     public float timeToLoad;
     bool isFading;
-    public Sprite[] maskSprites;
+    //public Sprite[] maskSprites;
 
     bool isLoading;
     public GameObject Loading;
@@ -39,8 +39,8 @@ public class SCR_LevelManager : MonoBehaviour {
             storyText[i].SetActive(false);
         }
         storyText[currentLevel].SetActive(true);
-        Invoke("LoadNextLevel",5);
-	}
+        LoadNextLevel();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -84,7 +84,7 @@ public class SCR_LevelManager : MonoBehaviour {
     IEnumerator IELoadNextLevel(int _nextLevel)
     {
         //Fade To Black
-        background.sprite = maskSprites[_nextLevel];
+        //background.sprite = maskSprites[_nextLevel];
         FadeBackground(Color.black, timeToLoad);
         yield return endOfFrame;
         yield return new WaitUntil(() => isFading == false);

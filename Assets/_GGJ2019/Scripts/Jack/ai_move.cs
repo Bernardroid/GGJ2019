@@ -77,7 +77,7 @@ public class ai_move : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Trigger!");
+        //Debug.Log("Trigger!");
         if(col.gameObject.CompareTag("Bullet"))
         {
             Debug.Log("BulletHit");

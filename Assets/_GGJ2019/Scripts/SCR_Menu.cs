@@ -52,7 +52,9 @@ public class SCR_Menu : MonoBehaviour {
 
     public void StartGame(int _scene)
     {
-        StartCoroutine(LoadScene(_scene));    
+
+        SceneManager.LoadScene(_scene);
+        //StartCoroutine(LoadScene(_scene));    
     }
 
     IEnumerator LoadScene(int _scene)
@@ -69,6 +71,6 @@ public class SCR_Menu : MonoBehaviour {
 
     public void ExitGame()
     {
-
+        Application.Quit();
     }
 }

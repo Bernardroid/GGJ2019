@@ -17,10 +17,9 @@ public class SCR_Bullet : MonoBehaviour {
     {
         myRigid = this.GetComponent<Rigidbody>();
 
-        Debug.Log("myForward: " + transform.forward);
+        //Debug.Log("myForward: " + transform.forward);
         myRigid.velocity = transform.forward * speed;
-        Debug.Log("AM GOING TO: " + myRigid.velocity);
-        Invoke("Deactivate", 5.0f);
+        //Debug.Log("AM GOING TO: " + myRigid.velocity);
     }
 
     // Update is called once per frame
@@ -49,6 +48,7 @@ public class SCR_Bullet : MonoBehaviour {
     {
         if(other.CompareTag("Enemy") || other.CompareTag("Floor"))
         {
+            Debug.Log("Choque con: "+ other.transform.name);
             this.gameObject.SetActive(false);
         }
     }
