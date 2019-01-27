@@ -6,15 +6,17 @@ public class SCR_CharacterController : MonoBehaviour {
 
     public GameObject aim;
     public float rateOfFire;
-
+    public float shootingDelay;
     Rigidbody rb;
     Animator anim;
 
     public float characterSpeed;
     public GameObject spwnBullet;
     public GameObject bulletPre;
+    public int bulletLimit;
     WaitForSeconds myWait;
-    Queue<GameObject> bulletPool;
+    WaitForSeconds shootWait;
+    List<GameObject> bulletPool;
 
     float x;
     float z;
@@ -30,13 +32,14 @@ public class SCR_CharacterController : MonoBehaviour {
     void Start ()
     {
         myWait = new WaitForSeconds(rateOfFire);
+        shootWait = new WaitForSeconds(shootingDelay);
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        bulletPool = new Queue<GameObject>();
-        for(int i = 0; i < 30; i++)
-        {
-            bulletPool.Enqueue(Instantiate(bulletPre, Vector3.one * -1000, Quaternion.identity));
-        }
+        bulletPool = new List<GameObject>();
+        //for(int i = 0; i < bulletLimit; i++)
+        //{
+        //    bulletPool.Enqueue(Instantiate(bulletPre, Vector3.one * -1000, Quaternion.identity));
+        //}
     }
 
     void Update ()
@@ -60,6 +63,7 @@ public class SCR_CharacterController : MonoBehaviour {
         if((Input.GetButtonDown("Shoot") || Input.GetButtonDown("Shoot2")) && !isShooting)
         {
             Debug.Log("SCHOOL SHOOTING");
+            isShooting = true;
             StartCoroutine(ShootBullet());
         }
         //if(Input.GetButtonUp("Shoot") || Input.GetButtonUp("Shoot"))
@@ -69,28 +73,49 @@ public class SCR_CharacterController : MonoBehaviour {
         //}
     }
 
+    #region POOLING
+    void InstantiateBullet()
+    {
+        GameObject temp;
+        for (int i = 0; i < bulletLimit; i++)
+        {
+            temp = Instantiate(bulletPre);
+            bulletPool.Add(temp);
+            temp.SetActive(false);
+        }
+
+    }
+    GameObject GetPooledBullet()
+    {
+        for (int i = 0; i < bulletPool.Count; i++)
+        {
+            if (!bulletPool[i].activeSelf)
+            {
+                return bulletPool[i];
+            }
+        }
+
+        GameObject temp = Instantiate(bulletPre);
+        bulletPool.Add(temp);
+        return temp;
+
+    }
+    #endregion
+
     IEnumerator ShootBullet()
     {
-        isShooting = true;
-        anim.SetBool("Shooting", true);
-        bulletPool.Peek().transform.position = spwnBullet.transform.position;
-        bulletPool.Peek().SetActive(true);
-        bulletPool.Peek().transform.rotation = spwnBullet.transform.parent.transform.rotation;
-        bulletPool.Enqueue(bulletPool.Dequeue());
-        yield return myWait;
-        anim.SetBool("Shooting", true);
-        bulletPool.Peek().transform.position = spwnBullet.transform.position;
-        bulletPool.Peek().SetActive(true);
-        bulletPool.Peek().transform.rotation = spwnBullet.transform.parent.transform.rotation;
-        bulletPool.Enqueue(bulletPool.Dequeue());
-        yield return myWait;
-        anim.SetBool("Shooting", true);
-        bulletPool.Peek().transform.position = spwnBullet.transform.position;
-        bulletPool.Peek().SetActive(true);
-        bulletPool.Peek().transform.rotation = spwnBullet.transform.parent.transform.rotation;
-        bulletPool.Enqueue(bulletPool.Dequeue());
-        yield return myWait;
+        GameObject temp;
+        for(int i = 0; i < 3; i++)
+        {
+            temp = GetPooledBullet();
+            anim.SetBool("Shooting", true);
+            temp.transform.position = spwnBullet.transform.position;
+            temp.SetActive(true);
+            temp.transform.LookAt((Vector3.right * aim.transform.position.x) + (Vector3.up * spwnBullet.transform.position.y) + (Vector3.forward * aim.transform.position.z));
+            yield return myWait;
+        }
         anim.SetBool("Shooting", false);
+        yield return shootWait;
         isShooting = false;
     }
 

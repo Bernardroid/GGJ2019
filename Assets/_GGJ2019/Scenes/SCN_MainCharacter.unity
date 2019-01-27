@@ -388,6 +388,7 @@ MonoBehaviour:
   characterSpeed: 5
   spwnBullet: {fileID: 0}
   bulletPre: {fileID: 0}
+  bulletLimit: 0
   sensitivity: 2
 --- !u!54 &472261374
 Rigidbody:
@@ -513,7 +514,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4992996610510774, guid: faf0fc51c39205345ba3cfb663c89850, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.413
       objectReference: {fileID: 0}
     - target: {fileID: 4992996610510774, guid: faf0fc51c39205345ba3cfb663c89850, type: 2}
       propertyPath: m_LocalPosition.y
@@ -521,7 +522,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4992996610510774, guid: faf0fc51c39205345ba3cfb663c89850, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.498
       objectReference: {fileID: 0}
     - target: {fileID: 4992996610510774, guid: faf0fc51c39205345ba3cfb663c89850, type: 2}
       propertyPath: m_LocalRotation.x
@@ -714,8 +715,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aim: {fileID: 736410294}
-  rateOfFire: 0.2
+  rateOfFire: 0.1
   characterSpeed: 2.4
   spwnBullet: {fileID: 905891879}
   bulletPre: {fileID: 1914454555545176, guid: 68b97c9bdc625d4478326bc4df8aaa1e, type: 2}
+  bulletLimit: 50
   sensitivity: 5

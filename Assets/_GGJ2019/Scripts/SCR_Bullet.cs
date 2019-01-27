@@ -6,6 +6,7 @@ public class SCR_Bullet : MonoBehaviour {
 
     public float speed;
     Rigidbody myRigid;
+    bool active;
 	// Use this for initialization
 	void Start () {
         myRigid = this.GetComponent<Rigidbody>();
@@ -15,11 +16,24 @@ public class SCR_Bullet : MonoBehaviour {
     private void OnEnable()
     {
         myRigid = this.GetComponent<Rigidbody>();
+
+        Debug.Log("myForward: " + transform.forward);
         myRigid.velocity = transform.forward * speed;
+        Debug.Log("AM GOING TO: " + myRigid.velocity);
+        Invoke("Deactivate", 5.0f);
     }
 
     // Update is called once per frame
-    void Update () {
-     
+    void Update ()
+    {
+        //if (active)
+        //{
+            myRigid.velocity = transform.forward * speed;
+        //}
+    }
+
+    void Deactivate()
+    {
+        this.gameObject.SetActive(false);
     }
 }

@@ -242,6 +242,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 0d1840a1b0e53a4488b528cd27b5321f, type: 2}
+  - {fileID: 2100000, guid: 2c19ef8da93cb8e4c9bef336a6bdc121, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,7 +282,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &65049553253201444
 BoxCollider:
@@ -290,7 +291,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914454555545176}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.2, z: 0.4}
@@ -304,7 +305,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0, g: 1, b: 0.5261214, a: 1}
+  m_Color: {r: 1, g: 0.7996, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -434,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MeshObject: {fileID: 1275859545428822}
-  Color: {r: 0, g: 0, b: 0, a: 1}
+  Color: {r: 1, g: 0.7945906, b: 0, a: 1}
   IsActive: 1
   FadeTime: 1.5
 --- !u!198 &198066398763629970
@@ -587,7 +588,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 1, b: 0.5261214, a: 1}
+      maxColor: {r: 1, g: 0.79404247, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -649,7 +650,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.07101827
+      scalar: 0.008405991
       minScalar: 0.4
       maxCurve:
         serializedVersion: 2
