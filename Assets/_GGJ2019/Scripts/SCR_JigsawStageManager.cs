@@ -124,6 +124,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(0);
                         temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
 
                     }
                 }
@@ -135,6 +136,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(1);
                         temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
 
                     }
                 }
@@ -146,6 +148,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(2);
                         temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
 
                     }
                 }
@@ -157,6 +160,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(3);
                         temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
 
                     }
                 }
@@ -178,6 +182,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(0);
                         temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
                     }
                 }
                 break;
@@ -188,6 +193,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(1);
                         temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
                     }
                 }
                 break;
@@ -198,6 +204,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(2);
                         temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
                     }
                 }
                 break;
@@ -208,6 +215,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(3);
                         temp.transform.position = activeSpawnListSecondary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        enemyCount++;
                     }
                 }
                 break;
@@ -218,10 +226,23 @@ public class SCR_JigsawStageManager : MonoBehaviour {
 
         if(_waves<=0)
         {
-            SCR_LevelManager.currentLevel++;
             yield return new WaitUntil(() => waveKills >= enemyCount);
             isSpawning = false;
+            //if using mementos
+            //mementos[SCR_LevelManager.currentLevel].SetActive(true);
+            SCR_LevelManager.currentLevel++;
 
+            //the other way
+            if (SCR_LevelManager.currentLevel>3)
+            {
+                /////////////////////////////////////////////////////////////////////
+                //Agregar aqui el final??
+                /////////////////////////////////////////////////////////////////////
+            }
+            else
+            {
+                levelManager.LoadNextLevel();
+            }
         }
         else
         {

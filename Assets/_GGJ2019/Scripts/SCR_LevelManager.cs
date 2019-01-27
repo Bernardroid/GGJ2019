@@ -80,7 +80,7 @@ public class SCR_LevelManager : MonoBehaviour {
             rooms[i].SetActive(false);
         }
         rooms[_nextLevel].gameObject.SetActive(true);
-
+        player.transform.position = jigsawManager.playerSpawn.transform.position;
         //Fade To Transparent
         FadeBackground(Color.clear,timeToLoad);
         yield return endOfFrame;

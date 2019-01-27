@@ -86,6 +86,7 @@ public class ai_move : MonoBehaviour {
             ai_bullet[] children = GetComponentsInChildren<ai_bullet>();
             for(int i=0; i<children.Length;i++)
             {
+                ////Cambiar 
                 children[i].CancelInvoke();
             }
             SCR_JigsawStageManager.waveKills++;
