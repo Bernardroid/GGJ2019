@@ -9,6 +9,7 @@ public class SCR_LevelManager : MonoBehaviour {
     SCR_JigsawStageManager jigsawManager;
     public static int currentLevel;
     public GameObject[] rooms;
+    public GameObject[] storyText;
     GameObject player;
     int totalKills;
     [Header("Background Related")]
@@ -33,7 +34,12 @@ public class SCR_LevelManager : MonoBehaviour {
         //FadeBackground(Color.clear, timeToFade);
         player = GameObject.FindGameObjectWithTag("Player");
         jigsawManager = GetComponent<SCR_JigsawStageManager>();
-        LoadNextLevel();
+        for (int i = 0; i < storyText.Length; i++)
+        {
+            storyText[i].SetActive(false);
+        }
+        storyText[currentLevel].SetActive(true);
+        Invoke("LoadNextLevel",5);
 	}
 	
 	// Update is called once per frame
@@ -83,13 +89,24 @@ public class SCR_LevelManager : MonoBehaviour {
         yield return endOfFrame;
         yield return new WaitUntil(() => isFading == false);
 
+        //
+        for (int i = 0; i < storyText.Length; i++)
+        {
+            storyText[i].SetActive(false);
+        }
+        storyText[_nextLevel].SetActive(true);
+        yield return new WaitForSeconds(5);
+        storyText[_nextLevel].SetActive(false);
+
         //Level Adjustments, Resets, etc.
         for (int i = 0; i < rooms.Length;i++)
         {
             rooms[i].SetActive(false);
         }
+        
         rooms[_nextLevel].gameObject.SetActive(true);
         player.transform.position = jigsawManager.playerSpawn.transform.position;
+        player.GetComponent<SCR_PlayerStats>().RegenLife();
         //Fade To Transparent
         FadeBackground(Color.clear,timeToLoad);
         yield return endOfFrame;
@@ -126,7 +143,9 @@ public class SCR_LevelManager : MonoBehaviour {
 
     public void RestartLevel()
     {
-        StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+        //StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+        Debug.Log("Reiniciar");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ExitLevel()

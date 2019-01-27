@@ -29,7 +29,12 @@ public class SCR_PlayerStats : MonoBehaviour {
     {
         life -= _dmg;
     }
+    public void RegenLife()
+    {
+        life = startingLife;
+        myLifeBar.fillAmount = Mathf.Clamp01(life / startingLife);
 
+    }
     private void OnCollisionEnter(Collision collision)
     {
       

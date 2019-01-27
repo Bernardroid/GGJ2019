@@ -29,6 +29,10 @@ public class ai_shootgunner : MonoBehaviour
         myWait = new WaitForSeconds(firerate);
         StartCoroutine(Fire());
     }
+    private void OnEnable()
+    {
+        StartCoroutine(Fire());
+    }
     /* void Update () {
 
          if(Time.time>next)

@@ -124,6 +124,7 @@ public class SCR_JigsawStageManager : MonoBehaviour {
                         temp = GetPooledEnemy(0);
                         temp.transform.position = activeSpawnListPrimary.Dequeue().transform.position;
                         temp.SetActive(true);
+                        
                         enemyCount++;
 
                     }

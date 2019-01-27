@@ -18,13 +18,17 @@ public class SCR_CharacterController : MonoBehaviour {
     WaitForSeconds shootWait;
     List<GameObject> bulletPool;
 
+    public LineRenderer aimLine;
+    Ray myRay;
+    RaycastHit hitInfo;
+
     float x;
     float z;
     float aimX;
     float aimZ;
     bool isShooting = false;
 
-    float radius = 3f;
+    float radius = 6f;
     public float sensitivity;
 
     Vector3 aimVector;
@@ -36,6 +40,7 @@ public class SCR_CharacterController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         bulletPool = new List<GameObject>();
+        hitInfo = new RaycastHit();
         //for(int i = 0; i < bulletLimit; i++)
         //{
         //    bulletPool.Enqueue(Instantiate(bulletPre, Vector3.one * -1000, Quaternion.identity));
@@ -60,9 +65,11 @@ public class SCR_CharacterController : MonoBehaviour {
         transform.LookAt(aim.transform.position.x * Vector3.right + transform.position.y * Vector3.up + aim.transform.position.z * Vector3.forward);
         MoveAim(aimVector);
 
+        //DrawAim();
+
         if((Input.GetButtonDown("Shoot") || Input.GetButtonDown("Shoot2")) && !isShooting)
         {
-            Debug.Log("SCHOOL SHOOTING");
+            //Debug.Log("SCHOOL SHOOTING");
             isShooting = true;
             StartCoroutine(ShootBullet());
         }
@@ -117,6 +124,28 @@ public class SCR_CharacterController : MonoBehaviour {
         anim.SetBool("Shooting", false);
         yield return shootWait;
         isShooting = false;
+    }
+
+    void ShootSpecialAttack()
+    {
+        
+    }
+
+    void DrawAim()
+    {
+        myRay = new Ray(transform.position, (new Vector3(aim.transform.position.x, 0.5f, aim.transform.position.z) - spwnBullet.transform.position).normalized);
+        aimLine.SetPosition(0, spwnBullet.transform.position);
+
+        aimLine.SetPosition(1, new Vector3(aim.transform.position.x, 0.5f, aim.transform.position.z));
+        //if(Physics.Raycast(myRay, out hitInfo, radius))
+        //{
+        //    Debug.Log("THERE");
+        //    aimLine.SetPosition(1, new Vector3(hitInfo.point.x, 0.5f, hitInfo.point.z));
+        //}
+        //else
+        //{
+        //    aimLine.SetPosition(1, (aim.transform.position - spwnBullet.transform.position).normalized * radius);
+        //}
     }
 
     void MoveCharacter(Vector3 _moveVector)

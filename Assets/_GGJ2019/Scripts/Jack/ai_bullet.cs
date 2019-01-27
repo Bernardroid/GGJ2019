@@ -28,17 +28,22 @@ public class ai_bullet : MonoBehaviour {
         StartCoroutine(Fire());
         //InvokeRepeating("fire", firerate, firerate);   
     }
-   /* void Update () {
-	
-        if(Time.time>next)
-        {
-            next = Time.time + firerate;
-            Instantiate(shot, bspawn.position, bspawn.rotation);
+    private void OnEnable()
+    {
+        StartCoroutine(Fire());
+    }
 
-        }
-        
+    /* void Update () {
 
-	}*/
+         if(Time.time>next)
+         {
+             next = Time.time + firerate;
+             Instantiate(shot, bspawn.position, bspawn.rotation);
+
+         }
+
+
+     }*/
 
     IEnumerator Fire()
     {
