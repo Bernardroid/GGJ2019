@@ -611,6 +611,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -14.49
       objectReference: {fileID: 0}
+    - target: {fileID: 1370475144625604, guid: 75d7185d8ab925946afeec468820e95b, type: 2}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65729107434092072, guid: 75d7185d8ab925946afeec468820e95b, type: 2}
     - {fileID: 65342826445434868, guid: 75d7185d8ab925946afeec468820e95b, type: 2}
@@ -2034,7 +2038,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1159331133979550, guid: f989556f47601ee429a5f6494ff8d9bf, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1154626285741336, guid: f989556f47601ee429a5f6494ff8d9bf, type: 2}
       propertyPath: m_StaticEditorFlags
@@ -2153,6 +2157,10 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1159331133979550, guid: f989556f47601ee429a5f6494ff8d9bf, type: 2}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65017954052108366, guid: f989556f47601ee429a5f6494ff8d9bf, type: 2}
     - {fileID: 65728356791206838, guid: f989556f47601ee429a5f6494ff8d9bf, type: 2}
@@ -2230,6 +2238,19 @@ MonoBehaviour:
   bulletPre: {fileID: 1914454555545176, guid: 68b97c9bdc625d4478326bc4df8aaa1e, type: 2}
   bulletLimit: 50
   sensitivity: 5
+--- !u!136 &1850304236
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1850304230}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.24
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1857440155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,6 +2450,10 @@ Prefab:
     - target: {fileID: 4495575489968428, guid: 2208a9cc65a63b747bb4731ecf67cd10, type: 2}
       propertyPath: m_LocalPosition.z
       value: -10.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111395203300560, guid: 2208a9cc65a63b747bb4731ecf67cd10, type: 2}
+      propertyPath: m_TagString
+      value: Floor
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65932771709375676, guid: 2208a9cc65a63b747bb4731ecf67cd10, type: 2}
@@ -2671,6 +2696,10 @@ Prefab:
     - target: {fileID: 4316705386195526, guid: d0228dfd3d7048e4f824889d28cd3271, type: 2}
       propertyPath: m_LocalPosition.z
       value: -13.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890939741474742, guid: d0228dfd3d7048e4f824889d28cd3271, type: 2}
+      propertyPath: m_TagString
+      value: Floor
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65332052776458720, guid: d0228dfd3d7048e4f824889d28cd3271, type: 2}
