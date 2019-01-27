@@ -9,6 +9,7 @@ TagManager:
   - Room
   - Bullet
   - Manager
+  - Floor
   layers:
   - Default
   - TransparentFX

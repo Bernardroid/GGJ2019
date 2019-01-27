@@ -11,6 +11,11 @@ public class hell_shot : MonoBehaviour {
         GetComponent<Rigidbody>().velocity = transform.forward*speed;
     }
 
+    private void Update()
+    {
+        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         this.gameObject.SetActive(false);

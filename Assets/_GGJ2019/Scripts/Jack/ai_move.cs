@@ -69,9 +69,7 @@ public class ai_move : MonoBehaviour {
 
         GetComponent<Rigidbody>().velocity = vel;
         {
-            transform.LookAt(target);
-            
-          
+            transform.LookAt(target);          
         }
 
  

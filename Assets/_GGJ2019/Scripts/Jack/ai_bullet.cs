@@ -11,6 +11,7 @@ public class ai_bullet : MonoBehaviour {
 
     public int poolammo;
     List<GameObject> shots;
+    WaitForSeconds myWait;
     void Start()
     {
         /*shots = new List<GameObject>();
@@ -23,8 +24,9 @@ public class ai_bullet : MonoBehaviour {
 
         }
         */
-
-        InvokeRepeating("fire", firerate, firerate);   
+        myWait = new WaitForSeconds(firerate);
+        StartCoroutine(Fire());
+        //InvokeRepeating("fire", firerate, firerate);   
     }
    /* void Update () {
 	
@@ -38,20 +40,19 @@ public class ai_bullet : MonoBehaviour {
 
 	}*/
 
-    void fire()
+    IEnumerator Fire()
     {
-        GameObject obj = hell_poolbullet.current.Getpoolshot();
+        yield return myWait;
 
+        GameObject obj = hell_poolbullet.current.Getpoolshot();
         //Instantiate(shot, transform.position, Quaternion.identity);
-        if (obj == null) return;
-        
-         
-               
-                obj.transform.position = transform.position;
-                obj.transform.rotation = transform.rotation;
-                obj.SetActive(true);
-           
-        
+        if (obj != null)
+        {
+            obj.transform.position = transform.position;
+            obj.transform.rotation = transform.rotation;
+            obj.SetActive(true);
+        }
+        StartCoroutine(Fire());
     }
 
 }
