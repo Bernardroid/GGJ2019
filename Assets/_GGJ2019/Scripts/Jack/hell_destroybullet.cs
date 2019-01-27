@@ -18,4 +18,13 @@ public class hell_destroybullet : MonoBehaviour {
         CancelInvoke();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+       if(other.CompareTag("Player") || other.CompareTag("Floor"))
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
+
+
 }

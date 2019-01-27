@@ -32,10 +32,14 @@ public class SCR_PlayerStats : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.CompareTag("bullets"))
-        {   
-            DamagePlayer(collision.gameObject.GetComponent<SCR_EnemyDmg>().dmg);
-            if(life <= 0)
+      
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("bullets"))
+        {
+            DamagePlayer(other.gameObject.GetComponent<SCR_EnemyDmg>().dmg);
+            if (life <= 0)
             {
                 //loose
                 myLifeBar.fillAmount = 0;
