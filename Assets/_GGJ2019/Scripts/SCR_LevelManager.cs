@@ -16,7 +16,8 @@ public class SCR_LevelManager : MonoBehaviour {
     public Image background;
     public float timeToFade;
     public float timeToLoad;
-    bool isFading;
+    [HideInInspector]
+    public bool isFading;
     //public Sprite[] maskSprites;
 
     bool isLoading;
@@ -46,7 +47,7 @@ public class SCR_LevelManager : MonoBehaviour {
 	void Update () {
 		
 	}
-    void FadeBackground(Color _targetColor, float _timeToChange)
+    public void FadeBackground(Color _targetColor, float _timeToChange)
     {
         if(!isFading)
         {

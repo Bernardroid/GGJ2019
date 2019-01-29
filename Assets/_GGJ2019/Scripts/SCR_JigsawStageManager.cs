@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class SCR_JigsawStageManager : MonoBehaviour {
 
     [Header("Enemies")]
@@ -238,6 +238,13 @@ public class SCR_JigsawStageManager : MonoBehaviour {
             {
                 /////////////////////////////////////////////////////////////////////
                 //Agregar aqui el final??
+                levelManager.FadeBackground(Color.clear, levelManager.timeToLoad);
+                yield return endOfFrame;
+                yield return new WaitUntil(() => levelManager.isFading == false);
+                levelManager.rooms[4].SetActive(true);
+                yield return new WaitForSeconds(5);
+                SCR_LevelManager.currentLevel = 0;
+                SceneManager.LoadScene(0);
                 /////////////////////////////////////////////////////////////////////
             }
             else
